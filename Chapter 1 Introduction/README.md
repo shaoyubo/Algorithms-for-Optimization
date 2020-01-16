@@ -25,6 +25,9 @@ There are also challenges associated with using optimization for design. We are 
 The basic optimization problem is:
 
 > minimize<sub>x</sub> f(x)
+
 > subject to x &in; X
 
-Here 
+Here x is a design point. A design point can be represented as a vector of values corresponding to different design variables. Any value of x from among all points in the feasible set X that minimizes the objective function is called a solution or minimizer. A particular solution is written x<sup>&star;</sup>.
+
+## 1.4 Constraints
