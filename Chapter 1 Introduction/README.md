@@ -72,17 +72,17 @@ Many numerical optimization methods seek local minima. Local minima are locally 
 
 A design point is guaranteed to be at a strong local minimum if the local derivative is zero and the second derivative is positive:
 
-1. f'(x&star;) = 0
+1. f'(x<sup>&star;</sup>) = 0
 
-2. f''(x&star;) > 0
+2. f''(x<sup>&star;</sup>) > 0
 
 A zero derivative ensures that shifting the point by small values does not affect the function value. A positive second derivative ensures that the zero first derivative occurs at the bottom of a bowl.
 
 A point can also be at a local minimium if it has a zero derivative and the second derivative is merely nonnegative:
 
-1. f'(x&star;) = 0, the first-order necessary condition (FONC)
+1. f'(x<sup>&star;</sup>) = 0, the first-order necessary condition (FONC)
 
-2. f''(x&star;) &ge; 0, the second-order necessary condition (SONC)
+2. f''(x<sup>&star;</sup>) &ge; 0, the second-order necessary condition (SONC)
 
 There conditions are referred to as necessary because all local minima obey these two rule.
 
@@ -97,3 +97,21 @@ The following conditions are necessray for x to be at a local mimimum of f:
 While necessary for optimality, the FONC and SONC are not sufficient for optimality. For unconstrained optimization of a twice-differentiable function, a point is guaranteed to be at a strong local minimum if the FONC is satisfied and &nabla;<sup>2</sup>f(x) is positive definite. These conditions are collectively known as the second-order sufficient condition (SOSC).
 
 ## 1.7 Contour Plots
+
+This book will include problems with a variety of numbers of dimensions, and will need to display information over one, two, or three dimensions. Functions of the form f(x<sub>1</sub>, x<sub>2</sub>) = y can be rendered in three-dimensional space, but not all orientations provide a complete view over the domain. A contour plot is a visual representation of a three-dimensional surface obtained by plotting regions with constant y values, known as contours, on a two-dimensional plot with axes indexed by x<sub>1</sub> and x<sub>2</sub>.
+
+## 1.8 Overview
+
+This section provides a brief overview of the chapters of this book.
+
+Chapter 2 begins by discussing derivatives and their generalization to multiple dimensions. Chapter 3 discusses bracketing, which involves identifying an interval in which a local minimum lies for a univariate function. Chapter 4 introduces local descent as a general approach to optimizing multivariate functions. Chapter 5 builds upon the previous chapter, explaining how to use first-order
+information obtained through the gradient estimate as a local model to inform the descent direction. Chapter 6 shows how to use local models based on second-order approximations to inform local descent.
+Chapter 7 presents a collection of direct methods for finding optima that avoid using gradient information for informing the direction of search. Chapter 8 introduces stochastic methods, where randomness is incorporated into the optimization process. Chapter 9 discusses population methods, where a collection of points is used to explore the design space. Chapter 10 introduces the notion of constraints in optimization problems. Chapter 11 makes the assumption that both the objective function and constraints are linear. Chapter 12 shows how to address the problem of multiobjective optimization, where we have multiple objectives that we are trying to optimize simultaneously. Chapter 13 discusses how to create sampling plans consisting of points that cover the design space. Chapter 14 explains how to build surrogate models of the objective function. Chapter 15 introduces probabilistic surrogate models that allow us to quantify our confidence in the predictions of the models. Chapter 16 shows how to use the probabilistic models from the previous chapter to guide surrogate optimization. Chapter 17 explains how to perform optimization under uncertainty, relaxing the assumption made in previous chapters that the objective function is a deterministic function of the design variables. Chapter 18 outlines approaches to uncertainty propagation, where known input distributions are used to estimate statistical quantities associated with the output distribution. Chapter 19 shows how to approach problems where the design variables are constrained to be discrete. Chapter 20 discusses how to search design spaces consisting of expressions defined by a grammar. Chapter 21 explains how to approach multidisciplinary design optimization.
+
+## 1.9 Summary
+
+- Optimization in engineering is the process of finding the best system design subject to a set of constraints.
+
+- Optimization is concerned with finding global minima of a function.
+
+- Minima occur where the gradient is zero, but zero-gradient does not imply optimality.
