@@ -69,3 +69,53 @@ This process can be automated through the use of a computational graph. A comput
 There are two methods for automatically differentiating f using its computational graph. The forward accumulation method used by dual numbers traverses the tree from inputs to outputs, whereas reverse accumulation requires a backwards pass through the graph.
 
 ### 2.4.1 Forward Accumulation
+
+Foward accumulation will automatically differentiate a function using a single forward pass through the function's computational graph. The method is equivalent to iteratively expanding the chain rule of the inner operation. To illustrate forward accumulation, we apply it to the example function f(a,b) = ln(ab + max(a,2)) to calulate the partial derivative at a = 3, b = 2 with respect to a.
+
+1. The procedure starts at the graph's source nodes consisting of the function inputs and any constant values. For each of these nodes, we note both the value and the partial derivative with respect to our target variable.
+
+2. Next we proceed down the tree, one node at a time, choosing as our next node one whose inputs have already been computed. We can compute the value by passing through the previous nodes' values, and we can compute the local partial derivative with respect to a using both the previous nodes' valus and their partial derivatives.
+
+We end up with the correct result, f(3,2) = ln 9 and df/da = 1/3. This was done using one pass through the computational graph. This process can be conveniently automated by a computer using a programming language which has overridden each operation to produce both the value and its derivative. Such pairs are called dual numbers.
+
+'''
+Dual numbers can be implemented by defining a struct Dual that contains two fields, the value v and the derivative ∂.
+
+struct Dual
+v
+∂
+end
+
+We must then implement methods for each of the base operations required. These methods take in dual numbers and produce new dual numbers using that operation’s chain rule logic.
+
+Base.:+(a::Dual, b::Dual) = Dual(a.v + b.v, a.∂ + b.∂)
+Base.:*(a::Dual, b::Dual) = Dual(a.v * b.v, a.v*b.∂ + b.v*a.∂)
+Base.log(a::Dual) = Dual(log(a.v), a.∂/a.v)
+
+function Base.max(a::Dual, b::Dual)
+v = max(a.v, b.v)
+∂ = a.v > b.v ? a.∂ : a.v < b.v ? b.∂ : NaN
+return Dual(v, ∂)
+end
+
+function Base.max(a::Dual, b::Int)
+v = max(a.v, b)
+∂ = a.v > b ? a.∂ : a.v < b ? 0 : NaN
+return Dual(v, ∂)
+end
+
+The ForwardDiff.jl package supports an extensive set of mathematical operations and additionally provides gradients and Hessians.
+
+julia> using ForwardDiff
+julia> a = ForwardDiff.Dual(3,1);
+julia> b = ForwardDiff.Dual(2,0);
+julia> log(a*b + max(a,2))
+Dual{Nothing}(2.1972245773362196,0.3333333333333333)
+'''
+
+### 2.4.2 Reverse Accumulation
+
+Forward accumulation requires n passes in order to compute an n-dimensional gradient. Reverse accumulation requires only a single run in order to compute a complete gradient but requires two passes through the graph: a forward pass during which necessary intermediate values are computed and a backward pass which computes the gradient. Reverse accumulation is often preferred over forward accumulation when gradients are needed, though care must be taken on memory-constrained systems when the computational graph is very large.
+
+Like forward accumulation, reverse accumulation will compute the partial derivative with respect to the chosen target variable but iteratively substitutes the outer function instead.
+
