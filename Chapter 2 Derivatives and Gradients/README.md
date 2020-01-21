@@ -40,6 +40,32 @@ The gradient of f at x is written &nabla;f(x) and is a vector. Each component of
 
 The directional derivative &nabla;<sub>s</sub>f(x) of a multivariate function f is the instantaneous rate of change of f(x) as x is moved with velocity s. The directional derivative can be computed using the gradient of the functon:
 
->  &nabla;<sub>s</sub>f(x) = &nabla;f(x)<sup>T<sup>s.
+>  &nabla;<sub>s</sub>f(x) = &nabla;f(x)<sup>T</sup>s.
 
 Another way to compute the directional derivative &nabla;<sub>s</sub>f(x) is to define g(&alpha;) = f(x + &alpha;s) and then compute g'(0).
+
+## 2.3 Numerical Differentiation
+
+The process of estimating derivativs numerically is referred to as numerical differentiation. Estimates can be derived in different ways from function evaluations. This section discusses finite difference methods and the complex step method.
+
+### 2.3.1 Finite Difference Methods
+
+As the name implis, finite difference methods compute the difference between two values that differ by a finite step size. They approximate the derivative definitions using small differences. Mathematically, the smaller the step size h, the better the derivative estimate. Practically, valus for h that are too small can result in numerical cancellation errors.
+
+The finite difference methods can be derived using the Taylor expansion. And we can show that the approximation has quadratic error.
+
+### 2.3.2 Complex Step Method
+
+We often run into the problem of needing to choose a step size h small enough to provide a good approximation but not too small so as to lead to numerical subtractive cancellation issues. The complex step method bypasses the effect of substractive cancellation by using a single function evaluation. We evaluate the function once after taking a step in the imaginary direction.
+
+The ral part approximates f(x) to within O(h<sup>2</sup>) as h approaches 0.
+
+## 2.4 Automatic Differentiation
+
+This section introduces algorithms for the numeric evaluation of derivatives of functions specified by a computer program. Key to these automatic differentiation techniques is the application of the chain rule. A program is composed of elementary operations like addition, subtraction, multiplication, and division.
+
+This process can be automated through the use of a computational graph. A computational graph represnets a function where the nodes are operations and the edges are input-output relations.The leaf nodes of a computational graph are input variables or constants, and terminal nodes are values output by the function.
+
+There are two methods for automatically differentiating f using its computational graph. The forward accumulation method used by dual numbers traverses the tree from inputs to outputs, whereas reverse accumulation requires a backwards pass through the graph.
+
+### 2.4.1 Forward Accumulation
