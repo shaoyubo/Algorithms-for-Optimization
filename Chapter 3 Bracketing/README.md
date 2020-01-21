@@ -64,7 +64,7 @@ end
 
 If we take the limit for large n, we see that the ratio between successive values of the Fibonacci sequence approaches the goldern ratio:
 
-> lim<sub>n&rarrow;infinity</sub> F<sub>n</sub>/F<sub>n-1</sub> = &alpha;
+> lim<sub>n&rarr;&infin;</sub> F<sub>n</sub>/F<sub>n-1</sub> = &alpha;
 
 ```
 function golden_section_search(f, a, b, n)
