@@ -30,3 +30,16 @@ julia> diff(f, x)
 
 ## 2.2 Derivatives in Multiple Dimensions
 
+The gradient is the generalization of the derivative to multivariate functions. It captures the local slope of the function, allowing us to predict the effect of taking a small step from a point in any direction. Recall that the derivative is the slope of the tangent line. The gradient points in the direction of steepest ascent of the tangent hyperplane. A hyperplane in an n-dimensional space is the set of points that satisfies
+
+> w<sub>1</sub> + ... + w<sub>n</sub> = b
+
+for some vector w and scalar b. A hyperplane has n - 1 dimensions.
+
+The gradient of f at x is written &nabla;f(x) and is a vector. Each component of that vector is the partial derivative of f with respect to that component. The Hessian of a multivariate function is a matrix containing all of the second derivatives with the respect to the input. The second derivatives capture information about the local curvature of te function.
+
+The directional derivative &nabla;<sub>s</sub>f(x) of a multivariate function f is the instantaneous rate of change of f(x) as x is moved with velocity s. The directional derivative can be computed using the gradient of the functon:
+
+>  &nabla;<sub>s</sub>f(x) = &nabla;f(x)<sup>T<sup>s.
+
+Another way to compute the directional derivative &nabla;<sub>s</sub>f(x) is to define g(&alpha;) = f(x + &alpha;s) and then compute g'(0).
