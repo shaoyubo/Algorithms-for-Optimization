@@ -86,7 +86,9 @@ v
 ∂
 end
 
-We must then implement methods for each of the base operations required. These methods take in dual numbers and produce new dual numbers using that operation’s chain rule logic.
+We must then implement methods for each of the base operations required. 
+These methods take in dual numbers and produce new dual numbers using 
+that operation’s chain rule logic.
 
 Base.:+(a::Dual, b::Dual) = Dual(a.v + b.v, a.∂ + b.∂)
 Base.:*(a::Dual, b::Dual) = Dual(a.v * b.v, a.v*b.∂ + b.v*a.∂)
@@ -104,7 +106,8 @@ v = max(a.v, b)
 return Dual(v, ∂)
 end
 
-The ForwardDiff.jl package supports an extensive set of mathematical operations and additionally provides gradients and Hessians.
+The ForwardDiff.jl package supports an extensive set of mathematical 
+operations and additionally provides gradients and Hessians.
 
 julia> using ForwardDiff
 julia> a = ForwardDiff.Dual(3,1);
@@ -117,5 +120,29 @@ Dual{Nothing}(2.1972245773362196,0.3333333333333333)
 
 Forward accumulation requires n passes in order to compute an n-dimensional gradient. Reverse accumulation requires only a single run in order to compute a complete gradient but requires two passes through the graph: a forward pass during which necessary intermediate values are computed and a backward pass which computes the gradient. Reverse accumulation is often preferred over forward accumulation when gradients are needed, though care must be taken on memory-constrained systems when the computational graph is very large.
 
-Like forward accumulation, reverse accumulation will compute the partial derivative with respect to the chosen target variable but iteratively substitutes the outer function instead.
+Like forward accumulation, reverse accumulation will compute the partial derivative with respect to the chosen target variable but iteratively substitutes the outer function instead. This process is the reverse pass, the evaluation of which requires intermediate values that are obtained during a forward pass.
 
+
+```
+The Zygote.jl package provides automatic differentiation in the form of
+reverse-accumulation. Here the gradient function is used to automatically
+generate the backwards pass through the source code of f to obtain the
+gradient.
+
+julia> import Zygote: gradient
+julia> f(a, b) = log(a*b + max(a,2));
+julia> gradient(f, 3.0, 2.0)
+(0.3333333333333333, 0.3333333333333333)
+```
+
+## 2.5 Summary
+
+- Derivatives are useful in optimization because they provide information about how to change a given point in order to improve the objective function.
+
+- For multivariate functions, various derivative-based concepts are useful for directing the search for an optimum, including the gradient, the Hessian, and the directional derivative.
+
+- One approach to numerical differentiation includes finite difference approximations.
+
+- The complex step method can eliminate the effect of subtractive cancellation error when taking small steps, resulting in high quality gradient estimates.
+
+- Analytic differentiation methods include forward and reverse accumulation on computational graphs.
