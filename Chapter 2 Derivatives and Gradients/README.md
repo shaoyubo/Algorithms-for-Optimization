@@ -78,7 +78,7 @@ Foward accumulation will automatically differentiate a function using a single f
 
 We end up with the correct result, f(3,2) = ln 9 and df/da = 1/3. This was done using one pass through the computational graph. This process can be conveniently automated by a computer using a programming language which has overridden each operation to produce both the value and its derivative. Such pairs are called dual numbers.
 
-'''
+```
 Dual numbers can be implemented by defining a struct Dual that contains two fields, the value v and the derivative ∂.
 
 struct Dual
@@ -111,7 +111,7 @@ julia> a = ForwardDiff.Dual(3,1);
 julia> b = ForwardDiff.Dual(2,0);
 julia> log(a*b + max(a,2))
 Dual{Nothing}(2.1972245773362196,0.3333333333333333)
-'''
+```
 
 ### 2.4.2 Reverse Accumulation
 
