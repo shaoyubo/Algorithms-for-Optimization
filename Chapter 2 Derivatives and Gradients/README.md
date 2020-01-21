@@ -19,8 +19,14 @@ which is the change in f(x) divided by the change in x as the step becomes infin
 The limit equation defining the derivative can be presented in three different ways:the forward difference, the central difference, and the backward difference.
 
 ```
+The implementation details of symbolic differentiation is outside the scope of this text. Various software packages, such as SymEngine.jl in Julia and SymPy in Python, provide implementations.
+
 julia> using SymEngine
-julia> @vars x; # define x as a symbolic variable julia> f = x^2 + x/2 - sin(x)/x;
+julia> @vars x; # define x as a symbolic variable 
+julia> f = x^2 + x/2 - sin(x)/x;
 julia> diff(f, x)
 1/2 + 2*x + sin(x)/x^2 - cos(x)/x
 ```
+
+## 2.2 Derivatives in Multiple Dimensions
+
